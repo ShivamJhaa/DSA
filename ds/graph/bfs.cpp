@@ -3,8 +3,34 @@ using namespace std;
 #define ll long long
 #define fastio ios_base::sync_with_stdio(false); cin.tie(NULL);
 
-void bfs(vector<int>adj[], int vis[]) {
+void dfs(vector<int>adj[], int n) {
     
+}
+
+void bfs(vector<int>adj[], int n) {
+    vector<int>vis(n+1,0);
+
+    for(int i=1;i<=n;i++) {
+        if (!vis[i]) {
+            queue<int>q;
+            q.push(i);
+            vis[i] = 1;
+
+            while(!q.empty()) {
+                int node = q.front();
+                q.pop();
+                
+                cout<<node<<" ";
+
+                for(auto it: adj[node]) {
+                    if(!vis[it]) {
+                        q.push(it);
+                        vis[it] = 1;
+                    }
+                }
+            }
+        }
+    }
 }
 
 int main(){
@@ -38,15 +64,10 @@ int main(){
         adjList[y].push_back(x); // Only for the case when the graph is undirected.
     }
 
-    // Weighted graph representation.
-    vector<pair<int,int>>g[n+1];
+    // // Weighted graph representation.
+    // vector<pair<int,int>>g[n+1];
 
-    for(int i=0;i<m;i++) {
-        int x,y,wt;
-        cin>>x>>y>>wt;
-        g[x].push_back({y,wt});
-        g[y].push_back({x,wt}); // Only for the case when the graph is undirected.
-    } 
+    bfs(adjList, n);
 
     return 0;
 }
